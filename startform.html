@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="utf-8">
+  <title>כניסה למשחק דמקה</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #deb8879e;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin-top: -50px;
+    }
+    .row {
+      margin-top: 20px;
+    }
+    .form-control {
+      margin-bottom: 10px;
+    }
+    .btn {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-5 text-center text-success font-weight-bold">הרשמת שחקנים</h1>
+    <form action="/game" method="post" class="mt-4">
+        <div class="row flex-row-reverse">
+        <div class="col-md-6">
+          <input type="text" class="form-control" dir="rtl" name="player1" placeholder="שם שחקן 1">
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" dir="rtl" name="player2" placeholder="שם שחקן 2">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-outline-success btn-block">התחל משחק</button>
+    </form>
+  </div>
+</body>
+</html>
