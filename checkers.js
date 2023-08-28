@@ -10,7 +10,6 @@ class Checker {
 	constructor(color) {
 		this.color = color;
 		this.div = document.createElement("div");
-
 		this.div.id = checkerIdCounter++;
 		this.div.className = this.color;
 		this.div.defaultStyle = this.div.style;
