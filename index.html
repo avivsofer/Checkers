@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>הדמקה של סופר ובנדה</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
  </head>
 <body>
     <h1 id="mainHeader">הדמקה של סופר ובנדה</h1>
@@ -14,7 +15,13 @@
     <div id="playerNames" class="text-center">
         <p><strong>שחקן 1:</strong> <span id="player1Name"></span></p>
         <p><strong>שחקן 2:</strong> <span id="player2Name"></span></p>
-    </div>    
+    </div>  
+    <div id="alertContainer" class="position-fixed bottom-0 end-0 p-3">
+        <div id="customAlert" class="alert alert-danger d-none" role="alert">
+          המהלך אינו חוקי, יש לבצע מהלך חוקי
+        </div>
+      </div>
     <script src="checkers.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

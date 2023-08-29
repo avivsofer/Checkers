@@ -17,7 +17,7 @@ function checkNamesAndStartGame() {
     if (player1Name && player2Name) {
       window.location.href = `index.html?player1=${encodeURIComponent(player1Name)}&player2=${encodeURIComponent(player2Name)}`;
     } else {
-      showErrorMessage("נא להזין שם מלא לשני השחקנים");
+      showErrorMessage("נא להזין שם לשני השחקנים");
     }
   }
 
@@ -65,6 +65,7 @@ function handleInputChange(inputElement) {
         resetPlaceholder(inputElement);
     }
 }
+
 
 class Checker {
 	constructor(color) {
@@ -143,7 +144,7 @@ class Checker {
 	getNextMoveCell = function (currentCell, destination) {
 		let currentCellNumber = getNumberFromId(currentCell);
 		let currentRowNumber = getNumberFromId(currentCell.parentElement);
-		let step;
+		let step;	
 
 		switch (destination) {
 			case "upLeft": {
@@ -171,7 +172,9 @@ class Checker {
 				if (currentRowNumber % 2 != 0) {
 					step = 5;
 				}
-				else step = 4;
+				else 
+					step = 4;
+					
 				break;
 			}
 		}
@@ -184,6 +187,16 @@ class Checker {
 		return nextCell;
 	}
 }
+
+// function showCustomAlert() {
+// 	const customAlert = document.getElementById("customAlert");
+// 	customAlert.classList.remove("d-none");
+// 	setTimeout(function () {
+// 	  customAlert.classList.add("d-none");
+// 	}, 3000);
+// }
+// if (nextCell.style.backgroundColor !== "green")   // בדיקה אם המהלך הוא חוקי
+// 			showCustomAlert()
 
 function drawBoard() {                    //  הפונקציה שיוצרת את לוח המשחק
 	let board = document.getElementById("board");
