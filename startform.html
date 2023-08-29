@@ -46,6 +46,7 @@
 </head>
 <body>
 <div class="container">
+
   <h1 id="my-text" onmouseenter="changeCursor('my-text')" onmouseleave="resetCursor('my-text')" class="display-4 mt-5 text-center text-success font-weight-bold">הרשמת שחקנים</h1>
   <h2 id="my-text2" onmouseenter="changeCursor('my-text2')" onmouseleave="resetCursor('my-text2')" class="h1 mt-3 text-center text-secondary font-weight-bold text-shadow" style="text-shadow: 1px 3px 4px rgba(0, 0, 0, 0.5);" >הדמקה של סופר ובנדה</h2>
   
@@ -63,6 +64,12 @@
       <p id="name-error" class="text-danger mt-2 text-center font-weight-bold" style="display: none;"></p>
     </div>
   </form>
+
+  <div id="playerNames" class="mt-4 text-center">
+    <div id="player1NameDisplay" class="player-name-display"></div>
+    <div id="player2NameDisplay" class="player-name-display"></div>
+  </div>
+
 </div>
 <script src="checkers.js"></script>
 </body>

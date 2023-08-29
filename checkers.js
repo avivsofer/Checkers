@@ -45,8 +45,6 @@ const player2Name = urlParams.get("player2");
 document.getElementById("player1Name").innerText = player1Name;
 document.getElementById("player2Name").innerText = player2Name;
 
-
-
 function clearPlaceholder(inputElement) {
     originalPlaceholder = inputElement.placeholder;
     inputElement.placeholder = '';
