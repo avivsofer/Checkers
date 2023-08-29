@@ -1,0 +1,43 @@
+
+    body {
+      background-color: #cae6e8;
+    }
+
+    .container {
+      background-color: rgba(65, 65, 65, 0.763);
+      box-shadow: 2px 2px 150px rgba(0, 0, 0, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      margin-top: 5%;
+      margin-bottom: 5%;
+      border-radius: 100%;
+      width: 50%;
+    }
+
+    .form-group {
+      margin-top: 20px;
+    }
+
+    .form-control {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      margin-top: 20px;
+    }
+
+    .centered-form {
+      text-align: center;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .wide-input {
+      width: 100%;
+    }
+
+
+  
