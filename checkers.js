@@ -1,3 +1,6 @@
+/*checkers.js*/
+
+let originalPlaceholder = '';
 let checkerIdCounter = 1;
 let checkersBox = new Array();
 let potentiallyDeadCheckers = new Map();
@@ -5,6 +8,63 @@ let enemyCheckerWasBeaten = false;
 let moveCounterWithoutBeating = 0;
 let moveSimulation = false;
 let playingCheckersHasMove = false;
+
+
+function checkNamesAndStartGame() {
+    let player1Name = document.getElementsByName("player1")[0].value;
+    let player2Name = document.getElementsByName("player2")[0].value;
+  
+    if (player1Name && player2Name) {
+      window.location.href = `index.html?player1=${encodeURIComponent(player1Name)}&player2=${encodeURIComponent(player2Name)}`;
+    } else {
+      showErrorMessage("נא להזין שם מלא לשני השחקנים");
+    }
+  }
+
+  function showErrorMessage(message) {
+    let errorMessageElement = document.getElementById("name-error");
+    errorMessageElement.innerText = message;
+    errorMessageElement.style.display = "block"; // הצגת ההודעה
+  }
+
+
+  function changeCursor(elementId) {   // פונקציה שמשנה את המראה כאשר העכבר נכנס לאלמנט
+  document.getElementById(elementId).style.cursor = "default";
+}
+
+function resetCursor(elementId) {
+  document.getElementById(elementId).style.cursor = "auto";
+}
+
+// Get the query parameters from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const player1Name = urlParams.get("player1");
+const player2Name = urlParams.get("player2");
+
+// Update the player names in the HTML
+document.getElementById("player1Name").innerText = player1Name;
+document.getElementById("player2Name").innerText = player2Name;
+
+
+
+function clearPlaceholder(inputElement) {
+    originalPlaceholder = inputElement.placeholder;
+    inputElement.placeholder = '';
+}
+
+function resetPlaceholder(inputElement) {
+    if (!inputElement.value) {
+        inputElement.placeholder = originalPlaceholder;
+    }
+}
+
+function handleInputChange(inputElement) {
+    if (!inputElement.value) {
+        clearPlaceholder(inputElement);
+    } else {
+        resetPlaceholder(inputElement);
+    }
+}
 
 class Checker {
 	constructor(color) {

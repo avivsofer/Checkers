@@ -7,16 +7,23 @@
   <style>
     body {
       background-color: #cae6e8;
+      background-image: url('bg.webp');
+      background-size: 1920px 1000px;
     }
     .container {
+      background-color: #cae6e8;
+      background-color: rgba(0, 0, 0, 0.6);
+      box-shadow: 2px 2px 150px rgba(0, 0, 0, 1);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      margin-top: -50px;
+      min-height: 80vh;
+      margin-top: 100px;
+      margin-bottom: 50px;
+      border-radius: 10%;
     }
-    .row {
+    .form-group {
       margin-top: 20px;
     }
     .form-control {
@@ -25,22 +32,37 @@
     .btn {
       margin-top: 20px;
     }
+    .centered-form {
+      text-align: center;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .wide-input {
+      width: 100%;
+    }
   </style>
+  
 </head>
 <body>
-  <div class="container">
-    <h1 class="mt-5 text-center text-success font-weight-bold">הרשמת שחקנים</h1>
-    <form action="/game" method="post" class="mt-4">
-        <div class="row flex-row-reverse">
-        <div class="col-md-6">
-          <input type="text" class="form-control" dir="rtl" name="player1" placeholder="שם שחקן 1">
-        </div>
-        <div class="col-md-6">
-          <input type="text" class="form-control" dir="rtl" name="player2" placeholder="שם שחקן 2">
-        </div>
-      </div>
-      <button type="submit" class="btn btn-outline-success btn-block">התחל משחק</button>
-    </form>
-  </div>
+<div class="container">
+  <h1 id="my-text" onmouseenter="changeCursor('my-text')" onmouseleave="resetCursor('my-text')" class="display-4 mt-5 text-center text-success font-weight-bold">הרשמת שחקנים</h1>
+  <h2 id="my-text2" onmouseenter="changeCursor('my-text2')" onmouseleave="resetCursor('my-text2')" class="h1 mt-3 text-center text-secondary font-weight-bold text-shadow" style="text-shadow: 1px 3px 4px rgba(0, 0, 0, 0.5);" >הדמקה של סופר ובנדה</h2>
+  
+  <form action="/game" method="post" class="mt-4 centered-form">
+    <div class="form-group">
+      <input type="text" class="form-control text-center wide-input" dir="rtl" name="player1" autocomplete="off" onFocus="clearPlaceholder(this)" onBlur="resetPlaceholder(this)" placeholder="שם מלא - שחקן 1">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control text-center wide-input" dir="rtl" name="player2" autocomplete="off" onFocus="clearPlaceholder(this)" onBlur="resetPlaceholder(this)" placeholder="שם מלא - שחקן 2">
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-outline-success btn-block font-weight-bold" onclick="checkNamesAndStartGame()">התחל משחק</button>
+    </div>
+    <div class="form-group">
+      <p id="name-error" class="text-danger mt-2 text-center font-weight-bold" style="display: none;"></p>
+    </div>
+  </form>
+</div>
+<script src="checkers.js"></script>
 </body>
 </html>
