@@ -73,3 +73,28 @@ div.white {
   #playerNames {
     border: 0;
 }
+
+#alertContainer{
+    border: 0;
+}
+
+#NewGameButton{
+    color: #fff;
+    cursor: pointer;
+}
+
+#liveAlertBtn{
+    cursor:auto;
+    vertical-align: middle;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+}
+
+#customAlert{
+    --bs-alert-color:#42596b;
+    text-align: center;
+    --bs-alert-bg:none;
+    --bs-alert-border-color: none;
+    
+
+}

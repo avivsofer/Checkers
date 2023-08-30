@@ -11,29 +11,29 @@ let playingCheckersHasMove = false;
 
 
 function checkNamesAndStartGame() {
-    let player1Name = document.getElementsByName("player1")[0].value;
-    let player2Name = document.getElementsByName("player2")[0].value;
-  
-    if (player1Name && player2Name) {
-      window.location.href = `index.html?player1=${encodeURIComponent(player1Name)}&player2=${encodeURIComponent(player2Name)}`;
-    } else {
-      showErrorMessage("נא להזין שם לשני השחקנים");
-    }
-  }
+	let player1Name = document.getElementsByName("player1")[0].value;
+	let player2Name = document.getElementsByName("player2")[0].value;
 
-  function showErrorMessage(message) {
-    let errorMessageElement = document.getElementById("name-error");
-    errorMessageElement.innerText = message;
-    errorMessageElement.style.display = "block"; // הצגת ההודעה
-  }
+	if (player1Name && player2Name) {
+		window.location.href = `index.html?player1=${encodeURIComponent(player1Name)}&player2=${encodeURIComponent(player2Name)}`;
+	} else {
+		showErrorMessage("נא להזין שם לשני השחקנים");
+	}
+}
+
+function showErrorMessage(message) {
+	let errorMessageElement = document.getElementById("name-error");
+	errorMessageElement.innerText = message;
+	errorMessageElement.style.display = "block"; // הצגת ההודעה
+}
 
 
-  function changeCursor(elementId) {   // פונקציה שמשנה את המראה כאשר העכבר נכנס לאלמנט
-  document.getElementById(elementId).style.cursor = "default";
+function changeCursor(elementId) {   // פונקציה שמשנה את המראה כאשר העכבר נכנס לאלמנט
+	document.getElementById(elementId).style.cursor = "default";
 }
 
 function resetCursor(elementId) {
-  document.getElementById(elementId).style.cursor = "auto";
+	document.getElementById(elementId).style.cursor = "auto";
 }
 
 // Get the query parameters from the URL
@@ -46,22 +46,22 @@ document.getElementById("player1Name").innerText = player1Name;
 document.getElementById("player2Name").innerText = player2Name;
 
 function clearPlaceholder(inputElement) {
-    originalPlaceholder = inputElement.placeholder;
-    inputElement.placeholder = '';
+	originalPlaceholder = inputElement.placeholder;
+	inputElement.placeholder = '';
 }
 
 function resetPlaceholder(inputElement) {
-    if (!inputElement.value) {
-        inputElement.placeholder = originalPlaceholder;
-    }
+	if (!inputElement.value) {
+		inputElement.placeholder = originalPlaceholder;
+	}
 }
 
 function handleInputChange(inputElement) {
-    if (!inputElement.value) {
-        clearPlaceholder(inputElement);
-    } else {
-        resetPlaceholder(inputElement);
-    }
+	if (!inputElement.value) {
+		clearPlaceholder(inputElement);
+	} else {
+		resetPlaceholder(inputElement);
+	}
 }
 
 
@@ -82,8 +82,8 @@ class Checker {
 	markAvailableMoves = function () {  //  פונקציה שמסמנת את התאים בהם אפשר לנוע, ע"י קריאה לפונקציה אחרת 
 		this.registerRowAtClick();
 		let availableCellsForMove = this.getCellsForAvailableMove();
-		if(moveSimulation) {
-			if(availableCellsForMove.length > 0) playingCheckersHasMove = true;
+		if (moveSimulation) {
+			if (availableCellsForMove.length > 0) playingCheckersHasMove = true;
 			return;
 		}
 		availableCellsForMove.forEach(c => c.style.backgroundColor = c.color);
@@ -112,7 +112,7 @@ class Checker {
 			destinationsForMove.push("bottomRight");
 		}
 
-		this.findAllAvailableMoves(this.div.parentElement, destinationsForMove, availableCellsForMove, enemyCheckerWasBeaten);  
+		this.findAllAvailableMoves(this.div.parentElement, destinationsForMove, availableCellsForMove, enemyCheckerWasBeaten);
 		return availableCellsForMove;
 	}
 
@@ -123,7 +123,7 @@ class Checker {
 				if (nextCell.childElementCount == 0 && !isEnemyCheckerBeaten) {
 					nextCell.color = "green";                                // צובע בירוק את התאים שאפשר להתקדם אליהם
 					availableCellsForMove.push(nextCell);
-				} 
+				}
 				else {
 					if (nextCell.childNodes[0] && !nextCell.childNodes[0].className.includes("playable")) {
 						let newNextCell = this.getNextMoveCell(nextCell, d);
@@ -142,7 +142,7 @@ class Checker {
 	getNextMoveCell = function (currentCell, destination) {
 		let currentCellNumber = getNumberFromId(currentCell);
 		let currentRowNumber = getNumberFromId(currentCell.parentElement);
-		let step;	
+		let step;
 
 		switch (destination) {
 			case "upLeft": {
@@ -170,9 +170,9 @@ class Checker {
 				if (currentRowNumber % 2 != 0) {
 					step = 5;
 				}
-				else 
+				else
 					step = 4;
-					
+
 				break;
 			}
 		}
@@ -193,8 +193,6 @@ class Checker {
 // 	  customAlert.classList.add("d-none");
 // 	}, 3000);
 // }
-// if (nextCell.style.backgroundColor !== "green")   // בדיקה אם המהלך הוא חוקי
-// 			showCustomAlert()
 
 function drawBoard() {                    //  הפונקציה שיוצרת את לוח המשחק
 	let board = document.getElementById("board");
@@ -216,6 +214,7 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 			}
 			if (td.className.includes("active")) {
 				td.onclick = function () {                    //  פונקציה המופעלת בלחיצה על הכלי שרוצים להזיז
+
 					if (this.style.backgroundColor === "green" || this.style.backgroundColor === "orange") {
 						let playableCheckers = Array.from(document.getElementsByClassName("playable"));
 						let checkerToMove = playableCheckers.filter(c => c.style.backgroundColor === "green")[0];
@@ -229,12 +228,15 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 								return;
 							}
 						}
+
 						cellsToDefaultStyle();     //  חזרה לעיצוב דיפולטיבי - תאים
 						checkersToDefaultStyle();  //  חזרה לעיצוב דיפולטיבי - כלים
 						switchTurn();              // החלפת תאים
 						removeBeatenCheckers(this);  // הסרה של כלים שנאכלו
 						checkForAGameStatus();       // בדיקת סטטוס המשחק
 					}
+
+
 				};
 			}
 			tr.appendChild(td);
@@ -242,6 +244,7 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 		board.appendChild(tr)
 	}
 }
+
 
 function createCheckers() {     // יצירת כלי המשחק
 	let color = "red";
@@ -274,6 +277,7 @@ function placeCheckersOnBoard() {
 	// placing red checkers
 	for (let i = 0; i < 12; i++) {
 		cells[i].appendChild(checkersBox[i].piece);
+
 	}
 
 	//placing white checkers
@@ -302,8 +306,8 @@ function getNumberFromId(el) {
 function removeBeatenCheckers(cell) {
 	let potentiallyDeadChecker = potentiallyDeadCheckers.get(cell.id);
 	if (potentiallyDeadChecker && potentiallyDeadChecker.parentNode) {
-		potentiallyDeadChecker.parentNode.removeChild(potentiallyDeadChecker);		
-	}			
+		potentiallyDeadChecker.parentNode.removeChild(potentiallyDeadChecker);
+	}
 }
 
 function checkIfWasBeat(checker) {
@@ -334,54 +338,59 @@ function switchTurn() {            // החלפת תור
 	});
 	enemyCheckerWasBeaten = false;
 	potentiallyDeadCheckers = new Map();
-	
+
 }
 
 function tryToBecomeKing(cellToCheck) {
 	let checker = cellToCheck.childNodes[0];
 	let rowNumber = getNumberFromId(cellToCheck.parentNode);
-	if ((rowNumber == 1 || rowNumber == 8) && !checker.innerHTML) checker.innerHTML = "K";	
+	if ((rowNumber == 1 || rowNumber == 8) && !checker.innerHTML) checker.innerHTML = "K";
+}
+
+function showWinnerAlert(winner) {    ////////////////////////////////////////////////////////////////////
+	const alertContainer = document.getElementById("alertContainer");
+	const customAlert = document.getElementById("customAlert");
+
+	customAlert.classList.remove("d-none");
+	customAlert.innerHTML = `${winner} הם המנצחים <button type="button" class="btn btn-primary" id="liveAlertBtn">להתחלת משחק חדש <a id="NewGameButton" href="./startform.html" class="alert-link">לחץ כאן</a></button>`;
+	alertContainer.scrollIntoView(); // גלילה לצורך הצגת ההודעה	
 }
 
 function checkForAGameStatus() {
 	let statusMessage;
-	
+
 	//one side winning check
 	let redCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("red"));
 	let whiteCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("white"));
-	if (redCheckers.length === 0) statusMessage = "Whites are the winners!!!";
-	else if (whiteCheckers.length === 0) statusMessage = "Reds are the winners!!!";
+	if (redCheckers.length === 0) statusMessage = "הלבנים";
+	else if (whiteCheckers.length === 0) statusMessage = "האדומים";
 	//checking for a draw
 	else if (moveCounterWithoutBeating === 40) statusMessage = "It's a draw!!!";
 	//no move winner
-	else{
+	else {
 		let response = noMoveAvailableTest();
-		if(!response.hasMove) statusMessage = response.winningSide + " are the winners by blocking";
+		if (!response.hasMove) statusMessage = response.winningSide + " are the winners by blocking";
 	}
-	
+
 	if (statusMessage) {
-		setTimeout(function () {
-			alert(statusMessage);
-			location.reload();  // טעינת הדף מחדש לאחר סיום המשחק
-		}, 300);
-		
-	} 
+		showWinnerAlert(statusMessage);
+	}
 }
 
-function noMoveAvailableTest(){
-	let responseObj = {winningSide : "",hasMove : false};
+function noMoveAvailableTest() {
+	let responseObj = { winningSide: "", hasMove: false };
 	let playingCheckers = Array.from(document.getElementsByClassName("playable"));
 	responseObj.winningSide = playingCheckers[0].className.includes("white") ? "Reds" : "Whites";
 	//simulating a move
 	moveSimulation = true;
-	for(let checker of playingCheckers) {
+	for (let checker of playingCheckers) {
 		checker.click();
-		if(playingCheckersHasMove) {
-		   moveSimulation = false;
-           playingCheckersHasMove = false;
-           responseObj.hasMove = true;	
-           return responseObj;		   
-		}				
+		if (playingCheckersHasMove) {
+			moveSimulation = false;
+			playingCheckersHasMove = false;
+			responseObj.hasMove = true;
+			return responseObj;
+		}
 	}
 	return responseObj;
 }
