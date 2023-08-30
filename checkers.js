@@ -186,13 +186,6 @@ class Checker {
 	}
 }
 
-// function showCustomAlert() {
-// 	const customAlert = document.getElementById("customAlert");
-// 	customAlert.classList.remove("d-none");
-// 	setTimeout(function () {
-// 	  customAlert.classList.add("d-none");
-// 	}, 3000);
-// }
 
 function drawBoard() {                    //  הפונקציה שיוצרת את לוח המשחק
 	let board = document.getElementById("board");
@@ -235,12 +228,8 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 						removeBeatenCheckers(this);  // הסרה של כלים שנאכלו
 						checkForAGameStatus();       // בדיקת סטטוס המשחק
 					}
-<<<<<<< HEAD
 
 
-=======
-					
->>>>>>> 5420865dca9c8102d4b8b45f28676e6544d317dc
 				};
 			}
 			tr.appendChild(td);
@@ -349,18 +338,15 @@ function tryToBecomeKing(cellToCheck) {
 	let checker = cellToCheck.childNodes[0];
 	let rowNumber = getNumberFromId(cellToCheck.parentNode);
 	if ((rowNumber == 1 || rowNumber == 8) && !checker.innerHTML) checker.innerHTML = "K";
-<<<<<<< HEAD
 }
 
-function showWinnerAlert(winner) {    ////////////////////////////////////////////////////////////////////
+function showWinnerAlert(winner) {  
 	const alertContainer = document.getElementById("alertContainer");
 	const customAlert = document.getElementById("customAlert");
 
 	customAlert.classList.remove("d-none");
 	customAlert.innerHTML = `${winner} הם המנצחים <button type="button" class="btn btn-primary" id="liveAlertBtn">להתחלת משחק חדש <a id="NewGameButton" href="./startform.html" class="alert-link">לחץ כאן</a></button>`;
-	alertContainer.scrollIntoView(); // גלילה לצורך הצגת ההודעה	
-=======
->>>>>>> 5420865dca9c8102d4b8b45f28676e6544d317dc
+	customAlert.scrollIntoView(); // גלילה לצורך הצגת ההודעה	
 }
 
 function checkForAGameStatus() {
@@ -380,15 +366,7 @@ function checkForAGameStatus() {
 	}
 
 	if (statusMessage) {
-<<<<<<< HEAD
 		showWinnerAlert(statusMessage);
-=======
-		setTimeout(function () {
-			alert(statusMessage);
-			location.reload();  // טעינת הדף מחדש לאחר סיום המשחק
-		}, 300);
-
->>>>>>> 5420865dca9c8102d4b8b45f28676e6544d317dc
 	}
 }
 
