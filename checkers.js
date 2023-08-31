@@ -79,15 +79,16 @@ class Checker {
 		return this.div;
 	}
 
-	markAvailableMoves = function () {  //  פונקציה שמסמנת את התאים בהם אפשר לנוע, ע"י קריאה לפונקציה אחרת 
+	markAvailableMoves = function () {  //  פונקציה שמסמנת את התאים בהם אפשר לנוע 
 		this.registerRowAtClick();
 		let availableCellsForMove = this.getCellsForAvailableMove();
 		if (moveSimulation) {
 			if (availableCellsForMove.length > 0) playingCheckersHasMove = true;
 			return;
 		}
+		
 		availableCellsForMove.forEach(c => c.style.backgroundColor = c.color);
-	}
+		}
 
 	registerRowAtClick = function () {
 		this.div.rowNumberAtClick = getNumberFromId(this.div.parentElement.parentElement);
@@ -116,13 +117,26 @@ class Checker {
 		return availableCellsForMove;
 	}
 
+	// colorRgbaCells = function () {             // פונקציה שהוספתי כדי לצבוע תאים שלא ניתן לזוז אליהם לשקוף
+	// 	const allCells = Array.from(document.getElementsByTagName("td"));
+	// 	allCells.forEach(cell => {
+	// 		if (!(cell.style.backgroundColor === "green"))
+	// 			cell.style.backgroundColor = "rgba(0, 0, 0, 0)";
+	// 	});
+	// }
+
 	findAllAvailableMoves = function (currentCell, destinationsForMove, availableCellsForMove, isEnemyCheckerBeaten) {    //  פונקציה שמוצאת את כל המקומות האפשריים, כולל התחשבות באכילת היריב
 		destinationsForMove.forEach(d => {
 			let nextCell = this.getNextMoveCell(currentCell, d);
 			if (nextCell) {
 				if (nextCell.childElementCount == 0 && !isEnemyCheckerBeaten) {
 					nextCell.color = "green";                                // צובע בירוק את התאים שאפשר להתקדם אליהם
+
+								 
+
+
 					availableCellsForMove.push(nextCell);
+
 				}
 				else {
 					if (nextCell.childNodes[0] && !nextCell.childNodes[0].className.includes("playable")) {
@@ -135,6 +149,7 @@ class Checker {
 						}
 					}
 				}
+				
 			}
 		});
 	}
@@ -387,6 +402,23 @@ function noMoveAvailableTest() {
 	}
 	return responseObj;
 }
+
+function displayErrorMessage(message) {                               // הקפצת מסר למשתמש לשלוש שניות
+    const errorMessageElement = document.createElement("div");
+    errorMessageElement.className = "error-message";
+    errorMessageElement.innerText = message;
+
+    document.body.appendChild(errorMessageElement);
+
+    setTimeout(() => {
+        document.body.removeChild(errorMessageElement);
+    }, 3000);
+}
+
+function tryToMoveToNonPlayableCell() {
+    displayErrorMessage("אתה מנסה להזיז את הכלי לתא אסור. אנא בחר תא אחר.");
+}
+
 
 function startTheGame() {
 	drawBoard();
