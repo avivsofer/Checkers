@@ -10,6 +10,7 @@ let moveSimulation = false;
 let playingCheckersHasMove = false;
 
 
+
 function checkNamesAndStartGame() {
 	let player1Name = document.getElementsByName("player1")[0].value;
 	let player2Name = document.getElementsByName("player2")[0].value;
@@ -335,6 +336,18 @@ function freezePlayableCheckers() {   // מקפיא תור ליריב כאשר �
 	checkersToFreeze.forEach(ch => ch.style.pointerEvents = "none");
 }
 
+// function switchTurn() {            // החלפת תור
+// 	checkersBox.forEach(c => {
+// 		let divClassName = c.piece.className;
+// 		if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
+// 		else divClassName += " playable";
+// 		c.piece.className = divClassName;
+// 	});
+// 	enemyCheckerWasBeaten = false;
+// 	potentiallyDeadCheckers = new Map();
+
+// }
+
 function switchTurn() {            // החלפת תור
 	checkersBox.forEach(c => {
 		let divClassName = c.piece.className;
@@ -344,7 +357,19 @@ function switchTurn() {            // החלפת תור
 	});
 	enemyCheckerWasBeaten = false;
 	potentiallyDeadCheckers = new Map();
+	showPlayerTurnMessage1();
 
+}
+function showPlayerTurnMessage1() {
+    const turnMessageElement = document.createElement("div");
+    turnMessageElement.className = "turn-message";
+    turnMessageElement.innerText = ' 1תור שחקן';
+
+    document.body.appendChild(turnMessageElement);
+
+    setTimeout(() => {
+        document.body.removeChild(turnMessageElement);
+    }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
 }
 
 // function highlightPlayableCheckers() {   // מדגיש את שם החייל שכרגע תורו
