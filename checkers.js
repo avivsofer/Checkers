@@ -347,6 +347,29 @@ function switchTurn() {            // החלפת תור
 
 }
 
+// function highlightPlayableCheckers() {   // מדגיש את שם החייל שכרגע תורו
+// 	let checkersToHighlight = Array.from(document.getElementsByClassName("playable"));
+// }
+
+// // פונקציה שמקבלת את השם של השחקן שבתורו ומעדכנת את התצוגה בהתאם
+// function highlightPlayerName(checkersToHighlight) {
+// 	const player1NameDisplay = document.getElementById('player1NameDisplay');
+// 	const player2NameDisplay = document.getElementById('player2NameDisplay');
+	
+// 	// בדיקה איזה שחקן הוא
+// 	if (playerName === 'שחקן 1') {
+// 	  player1NameDisplay.style.fontWeight = 'bold';
+// 	  player2NameDisplay.style.fontWeight = 'normal';
+// 	} else (playerName === 'שחקן 2') {
+// 	  player1NameDisplay.style.fontWeight = 'normal';
+// 	  player2NameDisplay.style.fontWeight = 'bold';
+// 	}
+//   }
+  
+//   // כאשר התור משתנה, קרא לפונקציה כדי לשנות את הסגנון של השמות
+//   highlightPlayerName(currentPlayer);
+  
+
 function tryToBecomeKing(cellToCheck) {
 	let checker = cellToCheck.childNodes[0];
 	let rowNumber = getNumberFromId(cellToCheck.parentNode);
