@@ -36,12 +36,10 @@ function resetCursor(elementId) {
 	document.getElementById(elementId).style.cursor = "auto";
 }
 
-// Get the query parameters from the URL
 const urlParams = new URLSearchParams(window.location.search);
 const player1Name = urlParams.get("player1");
 const player2Name = urlParams.get("player2");
 
-// Update the player names in the HTML
 document.getElementById("player1Name").innerText = player1Name;
 document.getElementById("player2Name").innerText = player2Name;
 
@@ -263,7 +261,7 @@ function createCheckers() {     // יצירת כלי המשחק
 		}
 		let c = new Checker(color);
 
-		c.piece.onclick = function () {    //  פונקציה המתממשת כאשת לוחצים עם העכבר על אחד הכלים
+		c.piece.onclick = function () {    //  פונקציה המתממשת כאשר לוחצים עם העכבר על אחד הכלים
 			let activeCells = Array.from(document.getElementsByClassName("active"));
 			if (this.className.includes("playable")) {
 				cellsToDefaultStyle();
