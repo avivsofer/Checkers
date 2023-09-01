@@ -9,6 +9,7 @@ let moveCounterWithoutBeating = 0;
 let moveSimulation = false;
 let playingCheckersHasMove = false;
 var a = 1;
+// let currentPlayer = 1;
 
 
 
@@ -358,33 +359,15 @@ function switchTurn() {            // החלפת תור
 	});
 	enemyCheckerWasBeaten = false;
 	potentiallyDeadCheckers = new Map();
-	if ((a % 2) === 0)
-	{
-		showPlayerTurnMessage1();
-	}
-	if (!((a % 2) === 0))
-	{
-		showPlayerTurnMessage2();
-	}
-	a++;
+	showPlayerTurnMessage1();
 
 }
+
+
 function showPlayerTurnMessage1() {
     const turnMessageElement = document.createElement("div");
     turnMessageElement.className = "turn-message";
-    turnMessageElement.innerText = ' 1תור שחקן';
-
-    document.body.appendChild(turnMessageElement);
-
-    setTimeout(() => {
-        document.body.removeChild(turnMessageElement);
-    }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
-}
-
-function showPlayerTurnMessage2() {
-    const turnMessageElement = document.createElement("div");
-    turnMessageElement.className = "turn-message";
-    turnMessageElement.innerText = ' 2תור שחקן';
+    turnMessageElement.innerText = "1תור שחקן";
 
     document.body.appendChild(turnMessageElement);
 
