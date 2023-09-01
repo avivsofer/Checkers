@@ -369,18 +369,27 @@ function switchTurn() {            // החלפת תור
 	a++;
 
 }
+
 function showPlayerTurnMessage1() {
     const turnMessageElement = document.createElement("div");
     turnMessageElement.className = "turn-message";
-    turnMessageElement.innerText = `תור שחקן: ${player1Name}`;
+    turnMessageElement.innerText = `התור של : ${player1Name}`;
     document.body.appendChild(turnMessageElement);
+
+    setTimeout(() => {
+        document.body.removeChild(turnMessageElement);
+    }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
 }
 
 function showPlayerTurnMessage2() {
     const turnMessageElement = document.createElement("div");
     turnMessageElement.className = "turn-message";
-    turnMessageElement.innerText = `תור שחקן: ${player2Name}`;
+    turnMessageElement.innerText = `התור של : ${player2Name}`;
     document.body.appendChild(turnMessageElement);
+
+    setTimeout(() => {
+        document.body.removeChild(turnMessageElement);
+    }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
 }
 
 
