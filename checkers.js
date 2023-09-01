@@ -13,8 +13,8 @@ var a = 1;
 
 
 function checkNamesAndStartGame() {
-	let player1Name = document.getElementsByName("player1")[0].value;
-	let player2Name = document.getElementsByName("player2")[0].value;
+	const player1Name = document.getElementsByName("player1")[0].value;
+	const player2Name = document.getElementsByName("player2")[0].value;
 
 	if (player1Name && player2Name) {
 		window.location.href = `index.html?player1=${encodeURIComponent(player1Name)}&player2=${encodeURIComponent(player2Name)}`;
@@ -372,13 +372,14 @@ function switchTurn() {            // החלפת תור
 function showPlayerTurnMessage1() {
     const turnMessageElement = document.createElement("div");
     turnMessageElement.className = "turn-message";
-    turnMessageElement.innerText = ' 1תור שחקן';
-
+    //turnMessageElement.innerText = ' 1תור שחקן';
+	turnMessageElement.innerText = '<span>${player1Name}</span>';
+	
     document.body.appendChild(turnMessageElement);
 
-    setTimeout(() => {
-        document.body.removeChild(turnMessageElement);
-    }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
+    // setTimeout(() => {
+    //     document.body.removeChild(turnMessageElement);
+    // }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
 }
 
 function showPlayerTurnMessage2() {
@@ -388,9 +389,9 @@ function showPlayerTurnMessage2() {
 
     document.body.appendChild(turnMessageElement);
 
-    setTimeout(() => {
-        document.body.removeChild(turnMessageElement);
-    }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
+    // setTimeout(() => {
+    //     document.body.removeChild(turnMessageElement);
+    // }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
 }
 
 // function highlightPlayableCheckers() {   // מדגיש את שם החייל שכרגע תורו
