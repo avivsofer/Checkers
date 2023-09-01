@@ -81,24 +81,24 @@ div.white {
 
 #player1Name {
     color: rgb(0, 0, 0);
-    background-color: #e1e6ea;
+    background-color: #007bff;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
     text-align: center;
-    border-radius: 20%;
+    border-radius: 10%;
 }
 
 #player2Name {
     color: rgb(0, 0, 0);
-    background-color: #e1e6ea;
+    background-color: #007bff;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
     text-align: center;
-    border-radius: 20%;
+    border-radius: 10%;
 }
 
 #alertContainer{
@@ -140,3 +140,17 @@ div.white {
     z-index: 9999;
 }
 
+.turn-message {
+    top: 15px;
+    left: 15px;
+    height: max-content;
+    width: max-content;
+    position: absolute;
+    color: #fff;
+    background-color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 20px;
+    padding: 5px 20px 5px 20px;
+    text-align: center;
+    font-size: 24px;
+    }

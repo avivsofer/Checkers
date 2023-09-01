@@ -8,6 +8,7 @@ let enemyCheckerWasBeaten = false;
 let moveCounterWithoutBeating = 0;
 let moveSimulation = false;
 let playingCheckersHasMove = false;
+// let currentPlayer = 1;
 
 
 
@@ -358,12 +359,14 @@ function switchTurn() {            // החלפת תור
 	enemyCheckerWasBeaten = false;
 	potentiallyDeadCheckers = new Map();
 	showPlayerTurnMessage1();
-
+	showPlayerTurnMessage();
 }
+
+
 function showPlayerTurnMessage1() {
     const turnMessageElement = document.createElement("div");
     turnMessageElement.className = "turn-message";
-    turnMessageElement.innerText = ' 1תור שחקן';
+    turnMessageElement.innerText = "1תור שחקן";
 
     document.body.appendChild(turnMessageElement);
 
@@ -371,6 +374,41 @@ function showPlayerTurnMessage1() {
         document.body.removeChild(turnMessageElement);
     }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
 }
+
+
+// function showPlayerTurnMessage() {
+// 	const playerNames = document.getElementById("playerNames");
+// 	const player1Name = document.getElementById("player1Name").value;
+// 	const player2Name = document.getElementById("player2Name").value;
+// 	const player1Element = document.getElementById("player1Name");
+// 	const player2Element = document.getElementById("player2Name");	
+
+// 	if (player1Element && player2Element) {
+// 		if (currentPlayer === 1) {
+// 			playerNames.innerText = `תור שחקן 1: ${player1Name}`;
+// 			currentPlayer = 2;
+// 		} else {
+// 			playerNames.innerText = `תור שחקן 2: ${player2Name}`;
+// 			currentPlayer = 1;
+// 		}
+// 	}
+// 	else {
+// 		console.error("אחד מהאלמנטים לא קיימים בדף.");
+// 	}
+
+// 	const turnMessageElement = document.createElement("div");
+// 	turnMessageElement.className = "turn-message";
+// 	turnMessageElement.innerText = playerNames.innerText;
+
+// 	document.body.appendChild(turnMessageElement);
+
+// 	setTimeout(() => {
+// 		document.body.removeChild(turnMessageElement);
+// 	}, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
+// }
+
+
+
 
 // function highlightPlayableCheckers() {   // מדגיש את שם החייל שכרגע תורו
 // 	let checkersToHighlight = Array.from(document.getElementsByClassName("playable"));
