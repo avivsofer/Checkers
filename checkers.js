@@ -9,6 +9,8 @@ let moveCounterWithoutBeating = 0;
 let moveSimulation = false;
 let playingCheckersHasMove = false;
 var a = 1;
+const messages = []; 
+
 
 
 
@@ -350,46 +352,49 @@ function freezePlayableCheckers() {   // מקפיא תור ליריב כאשר �
 // }
 
 function switchTurn() {            // החלפת תור
-	checkersBox.forEach(c => {
-		let divClassName = c.piece.className;
-		if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
-		else divClassName += " playable";
-		c.piece.className = divClassName;
-	});
-	enemyCheckerWasBeaten = false;
-	potentiallyDeadCheckers = new Map();
-	if ((a % 2) === 0)
-	{
-		showPlayerTurnMessage1();
-	}
-	if (!((a % 2) === 0))
-	{
-		showPlayerTurnMessage2();
-	}
+    checkersBox.forEach(c => {
+        let divClassName = c.piece.className;
+        if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
+        else divClassName += " playable";
+        c.piece.className = divClassName;
+    });
+    enemyCheckerWasBeaten = false;
+    potentiallyDeadCheckers = new Map();
+
+
+    removePreviousTurnMessage();
+    
+    // הצג את ההודעה החדשה
+    if ((a % 2) === 0) {
+        const message = `התור של : ${player1Name}`;
+        showPlayerTurnMessage(message);
+    } else {
+        const message = `התור של : ${player2Name}`;
+        showPlayerTurnMessage(message);
+    }
 	a++;
-
 }
 
-function showPlayerTurnMessage1() {
-    const turnMessageElement = document.createElement("div");
-    turnMessageElement.className = "turn-message";
-    turnMessageElement.innerText = `התור של : ${player1Name}`;
-    document.body.appendChild(turnMessageElement);
-
-    setTimeout(() => {
-        document.body.removeChild(turnMessageElement);
-    }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
+function showPlayerTurnMessage(message) {
+    messages.push(message);
+    displayNextMessage();
 }
 
-function showPlayerTurnMessage2() {
-    const turnMessageElement = document.createElement("div");
-    turnMessageElement.className = "turn-message";
-    turnMessageElement.innerText = `התור של : ${player2Name}`;
-    document.body.appendChild(turnMessageElement);
+function displayNextMessage() {
+    if (messages.length > 0) {
+        const message = messages.shift();
+        const turnMessageElement = document.createElement("div");
+        turnMessageElement.className = "turn-message";
+        turnMessageElement.innerText = message;
+        document.body.appendChild(turnMessageElement);
+    }
+}
 
-    setTimeout(() => {
-        document.body.removeChild(turnMessageElement);
-    }, 3000); // הודעה תוצג למשך 3 שניות ואז תימחק
+function removePreviousTurnMessage() {
+    const previousTurnMessage = document.querySelector(".turn-message");
+    if (previousTurnMessage) {
+        previousTurnMessage.remove();
+    }
 }
 
 
