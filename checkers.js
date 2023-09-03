@@ -9,7 +9,7 @@ let moveCounterWithoutBeating = 0;
 let moveSimulation = false;
 let playingCheckersHasMove = false;
 var numberOfTurn = 1;
-const messages = []; 
+const messages = [];
 
 
 
@@ -88,9 +88,9 @@ class Checker {
 			if (availableCellsForMove.length > 0) playingCheckersHasMove = true;
 			return;
 		}
-		
+
 		availableCellsForMove.forEach(c => c.style.backgroundColor = c.color);
-		}
+	}
 
 	registerRowAtClick = function () {
 		this.div.rowNumberAtClick = getNumberFromId(this.div.parentElement.parentElement);
@@ -134,7 +134,7 @@ class Checker {
 				if (nextCell.childElementCount == 0 && !isEnemyCheckerBeaten) {
 					nextCell.color = "green";                                // צובע בירוק את התאים שאפשר להתקדם אליהם
 
-								 
+
 
 
 					availableCellsForMove.push(nextCell);
@@ -151,7 +151,7 @@ class Checker {
 						}
 					}
 				}
-				
+
 			}
 		});
 	}
@@ -222,12 +222,12 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 				td.id = "cell_" + cellIdCounter++;
 				td.className += " active";
 			}
-			
+
 			td.onclick = function () {                    //  פונקציה המופעלת בלחיצה על הכלי שרוצים להזיז
 				if (td.className.includes("active")) {
 					if (this.style.backgroundColor === "green" || this.style.backgroundColor === "orange") {
 						let playableCheckers = Array.from(document.getElementsByClassName("playable"));
-						let checkerToMove = playableCheckers.filter(c => c.style.backgroundColor === "green")[0];
+						let checkerToMove = playableCheckers.filter(c => c.style.backgroundColor === "green")[0];  // אולי לנסות להוריד את הפילטור?
 						this.appendChild(checkerToMove);
 						tryToBecomeKing(this);
 						if (enemyCheckerWasBeaten = checkIfWasBeat(checkerToMove)) {
@@ -244,238 +244,242 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 						switchTurn();              // החלפת תאים
 						removeBeatenCheckers(this);  // הסרה של כלים שנאכלו
 						checkForAGameStatus();       // בדיקת סטטוס המשחק
-						
+
 					}
+					// if (!(this.style.backgroundColor === "green") && !(this.style.backgroundColor === "orange")) {   // הבאתי מהפונקציה של בדיקה האם נאכל
+					// 	let currentRowNumber = getNumberFromId(checkerToMove.parentElement.parentElement);
+					// 	if (Math.abs(currentRowNumber - checkerToMove.rowNumberAtClick) == 1) {
+					// 		tryToMoveToNonPlayableCell();
+					// 	}
 
-
+					}
+					else                               //נגיעה במשבצת לבנה
+						tryToMoveToNonPlayableCell();
 				}
-				else                               //נגיעה במשבצת לבנה
-				tryToMoveToNonPlayableCell();
+				tr.appendChild(td);
 			}
-			tr.appendChild(td);
+			board.appendChild(tr)
 		}
-		board.appendChild(tr)
 	}
-}
 
 
-function createCheckers() {     // יצירת כלי המשחק
-	let color = "red";
+	function createCheckers() {     // יצירת כלי המשחק
+		let color = "red";
 
-	for (let i = 1; i <= 24; i++) {
-		if (i > 12) {
-			color = "white";
-		}
-		let c = new Checker(color);
+		for (let i = 1; i <= 24; i++) {
+			if (i > 12) {
+				color = "white";
+			}
+			let c = new Checker(color);
 
-		c.piece.onclick = function () {    //  פונקציה המתממשת כאשר לוחצים עם העכבר על אחד הכלים
-			let activeCells = Array.from(document.getElementsByClassName("active"));
-			if (this.className.includes("playable")) {
-				cellsToDefaultStyle();
-				c.markAvailableMoves();
-				checkersToDefaultStyle();
-				if (activeCells.filter(cell => cell.style.backgroundColor === "green" || cell.style.backgroundColor === "orange").length > 0) {
-					this.style.backgroundColor = "green";
-					this.style.border = "5px solid yellow";
+			c.piece.onclick = function () {    //  פונקציה המתממשת כאשר לוחצים עם העכבר על אחד הכלים
+				let activeCells = Array.from(document.getElementsByClassName("active"));
+				if (this.className.includes("playable")) {
+					cellsToDefaultStyle();
+					c.markAvailableMoves();
+					checkersToDefaultStyle();
+					if (activeCells.filter(cell => cell.style.backgroundColor === "green" || cell.style.backgroundColor === "orange").length > 0) {
+						this.style.backgroundColor = "green";
+						this.style.border = "5px solid yellow";
+					}
 				}
-			}
-		};
-		checkersBox.push(c);
-	}
-}
-
-function placeCheckersOnBoard() {
-	let cells = document.getElementsByClassName("active");
-
-	// placing red checkers
-	for (let i = 0; i < 12; i++) {
-		cells[i].appendChild(checkersBox[i].piece);
-
-	}
-
-	//placing white checkers
-	for (let i = 12; i < 24; i++) {
-		cells[i + 8].appendChild(checkersBox[i].piece);
-	}
-}
-
-function cellsToDefaultStyle() {
-	Array.from(document.getElementsByClassName("active")).forEach(c => {
-		if (c.hasOwnProperty("color")) c.color = "";
-		c.style.backgroundColor = "#474b52";
-	});
-}
-
-function checkersToDefaultStyle() {       //  מסדר את הכלים להיות בצורה הדיפולטיבית
-	let teamCheckers = Array.from(document.getElementsByClassName("playable"));
-	teamCheckers.forEach(ch => ch.style = ch.defaultStyle);
-}
-
-function getNumberFromId(el) {
-	let elNumber = Number(el.id.substring(el.id.indexOf("_") + 1));
-	return elNumber;
-}
-
-function removeBeatenCheckers(cell) {
-	let potentiallyDeadChecker = potentiallyDeadCheckers.get(cell.id);
-	if (potentiallyDeadChecker && potentiallyDeadChecker.parentNode) {
-		potentiallyDeadChecker.parentNode.removeChild(potentiallyDeadChecker);
-	}
-}
-
-function checkIfWasBeat(checker) {
-	let wasBeat;
-	let currentRowNumber = getNumberFromId(checker.parentElement.parentElement);
-	if (Math.abs(currentRowNumber - checker.rowNumberAtClick) == 2) {
-		wasBeat = true;
-		moveCounterWithoutBeating = 0;
-	}
-	else {
-		wasBeat = false;
-		moveCounterWithoutBeating++;
-	}
-	return wasBeat;
-}
-
-function freezePlayableCheckers() {   // מקפיא תור ליריב כאשר יש יכולת לאכול לו כלי נוסף
-	let checkersToFreeze = Array.from(document.getElementsByClassName("playable"));
-	checkersToFreeze.forEach(ch => ch.style.pointerEvents = "none");
-}
-
-// function switchTurn() {            // החלפת תור
-// 	checkersBox.forEach(c => {
-// 		let divClassName = c.piece.className;
-// 		if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
-// 		else divClassName += " playable";
-// 		c.piece.className = divClassName;
-// 	});
-// 	enemyCheckerWasBeaten = false;
-// 	potentiallyDeadCheckers = new Map();
-
-// }
-
-function switchTurn() {            // החלפת תור
-    checkersBox.forEach(c => {
-        let divClassName = c.piece.className;
-        if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
-        else divClassName += " playable";
-        c.piece.className = divClassName;
-    });
-    enemyCheckerWasBeaten = false;
-    potentiallyDeadCheckers = new Map();
-
-
-    removePreviousTurnMessage();
-    
-    // הצג את ההודעה החדשה
-    if ((numberOfTurn % 2) === 0) {
-        const message = `התור של : ${player1Name}`;
-        showPlayerTurnMessage(message);
-    } else {
-        const message = `התור של : ${player2Name}`;
-        showPlayerTurnMessage(message);
-    }
-	numberOfTurn++;
-}
-
-function showPlayerTurnMessage(message) {
-    messages.push(message);
-    displayNextMessage();
-}
-
-function displayNextMessage() {
-    if (messages.length > 0) {
-        const message = messages.shift();
-        const turnMessageElement = document.createElement("div");
-        turnMessageElement.className = "turn-message";
-        turnMessageElement.innerText = message;
-        document.body.appendChild(turnMessageElement);
-    }
-}
-
-function removePreviousTurnMessage() {
-    const previousTurnMessage = document.querySelector(".turn-message");
-    if (previousTurnMessage) {
-        previousTurnMessage.remove();
-    }
-}
-
-
-function tryToBecomeKing(cellToCheck) {
-	let checker = cellToCheck.childNodes[0];
-	let rowNumber = getNumberFromId(cellToCheck.parentNode);
-	if ((rowNumber == 1 || rowNumber == 8) && !checker.innerHTML) checker.innerHTML = "K";
-}
-
-function showWinnerAlert(winner) {  
-	const alertContainer = document.getElementById("alertContainer");
-	const customAlert = document.getElementById("customAlert");
-
-	customAlert.classList.remove("d-none");
-	customAlert.innerHTML = `${winner} הם המנצחים <button type="button" class="btn btn-primary" id="liveAlertBtn">להתחלת משחק חדש <a id="NewGameButton" href="./startform.html" class="alert-link">לחץ כאן</a></button>`;
-	customAlert.scrollIntoView(); // גלילה לצורך הצגת ההודעה	
-}
-
-function checkForAGameStatus() {
-	let statusMessage;
-
-	//בדיקה על נצחון של צד אחד
-	let redCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("red"));
-	let whiteCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("white"));
-	if (redCheckers.length === 0) statusMessage = "הלבנים";
-	else if (whiteCheckers.length === 0) statusMessage = "האדומים";
-	//checking for a draw
-	else if (moveCounterWithoutBeating === 40) statusMessage = "It's a draw!!!";
-	//ניצחון בשל חוסר יכולת להזיז כלי
-	else {
-		let response = noMoveAvailableTest();
-		if (!response.hasMove) statusMessage = response.winningSide + " are the winners by blocking";
-	}
-
-	if (statusMessage) {
-		showWinnerAlert(statusMessage);
-	}
-}
-
-function noMoveAvailableTest() {
-	let responseObj = { winningSide: "", hasMove: false };
-	let playingCheckers = Array.from(document.getElementsByClassName("playable"));
-	responseObj.winningSide = playingCheckers[0].className.includes("white") ? "Reds" : "Whites";
-	//simulating a move
-	moveSimulation = true;
-	for (let checker of playingCheckers) {
-		checker.click();
-		if (playingCheckersHasMove) {
-			moveSimulation = false;
-			playingCheckersHasMove = false;
-			responseObj.hasMove = true;
-			return responseObj;
+			};
+			checkersBox.push(c);
 		}
 	}
-	return responseObj;
-}
 
-function displayErrorMessage(message) {                               // הקפצת מסר למשתמש לשלוש שניות
-    const errorMessageElement = document.createElement("div");
-    errorMessageElement.className = "error-message";
-    errorMessageElement.innerText = message;
+	function placeCheckersOnBoard() {
+		let cells = document.getElementsByClassName("active");
 
-    document.body.appendChild(errorMessageElement);
+		// placing red checkers
+		for (let i = 0; i < 12; i++) {
+			cells[i].appendChild(checkersBox[i].piece);
 
-    setTimeout(() => {
-        document.body.removeChild(errorMessageElement);
-    }, 3000);
-}
+		}
 
-function tryToMoveToNonPlayableCell() {
-    displayErrorMessage("לחצת במשבצת לא חוקית");
-}
+		//placing white checkers
+		for (let i = 12; i < 24; i++) {
+			cells[i + 8].appendChild(checkersBox[i].piece);
+		}
+	}
+
+	function cellsToDefaultStyle() {
+		Array.from(document.getElementsByClassName("active")).forEach(c => {
+			if (c.hasOwnProperty("color")) c.color = "";
+			c.style.backgroundColor = "#474b52";
+		});
+	}
+
+	function checkersToDefaultStyle() {       //  מסדר את הכלים להיות בצורה הדיפולטיבית
+		let teamCheckers = Array.from(document.getElementsByClassName("playable"));
+		teamCheckers.forEach(ch => ch.style = ch.defaultStyle);
+	}
+
+	function getNumberFromId(el) {
+		let elNumber = Number(el.id.substring(el.id.indexOf("_") + 1));
+		return elNumber;
+	}
+
+	function removeBeatenCheckers(cell) {
+		let potentiallyDeadChecker = potentiallyDeadCheckers.get(cell.id);
+		if (potentiallyDeadChecker && potentiallyDeadChecker.parentNode) {
+			potentiallyDeadChecker.parentNode.removeChild(potentiallyDeadChecker);
+		}
+	}
+
+	function checkIfWasBeat(checker) {
+		let wasBeat;
+		let currentRowNumber = getNumberFromId(checker.parentElement.parentElement);
+		if (Math.abs(currentRowNumber - checker.rowNumberAtClick) == 2) {
+			wasBeat = true;
+			moveCounterWithoutBeating = 0;
+		}
+		else {
+			wasBeat = false;
+			moveCounterWithoutBeating++;
+		}
+		return wasBeat;
+	}
+
+	function freezePlayableCheckers() {   // מקפיא תור ליריב כאשר יש יכולת לאכול לו כלי נוסף
+		let checkersToFreeze = Array.from(document.getElementsByClassName("playable"));
+		checkersToFreeze.forEach(ch => ch.style.pointerEvents = "none");
+	}
+
+	// function switchTurn() {            // החלפת תור
+	// 	checkersBox.forEach(c => {
+	// 		let divClassName = c.piece.className;
+	// 		if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
+	// 		else divClassName += " playable";
+	// 		c.piece.className = divClassName;
+	// 	});
+	// 	enemyCheckerWasBeaten = false;
+	// 	potentiallyDeadCheckers = new Map();
+
+	// }
+
+	function switchTurn() {            // החלפת תור
+		checkersBox.forEach(c => {
+			let divClassName = c.piece.className;
+			if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
+			else divClassName += " playable";
+			c.piece.className = divClassName;
+		});
+		enemyCheckerWasBeaten = false;
+		potentiallyDeadCheckers = new Map();
 
 
-function startTheGame() {
-	drawBoard();
-	createCheckers();
-	placeCheckersOnBoard();
-}
+		removePreviousTurnMessage();
 
-startTheGame();
+		// הצג את ההודעה החדשה
+		if ((numberOfTurn % 2) === 0) {
+			const message = `התור של : ${player1Name}`;
+			showPlayerTurnMessage(message);
+		} else {
+			const message = `התור של : ${player2Name}`;
+			showPlayerTurnMessage(message);
+		}
+		numberOfTurn++;
+	}
+
+	function showPlayerTurnMessage(message) {
+		messages.push(message);
+		displayNextMessage();
+	}
+
+	function displayNextMessage() {
+		if (messages.length > 0) {
+			const message = messages.shift();
+			const turnMessageElement = document.createElement("div");
+			turnMessageElement.className = "turn-message";
+			turnMessageElement.innerText = message;
+			document.body.appendChild(turnMessageElement);
+		}
+	}
+
+	function removePreviousTurnMessage() {
+		const previousTurnMessage = document.querySelector(".turn-message");
+		if (previousTurnMessage) {
+			previousTurnMessage.remove();
+		}
+	}
+
+
+	function tryToBecomeKing(cellToCheck) {
+		let checker = cellToCheck.childNodes[0];
+		let rowNumber = getNumberFromId(cellToCheck.parentNode);
+		if ((rowNumber == 1 || rowNumber == 8) && !checker.innerHTML) checker.innerHTML = "K";
+	}
+
+	function showWinnerAlert(winner) {
+		const alertContainer = document.getElementById("alertContainer");
+		const customAlert = document.getElementById("customAlert");
+
+		customAlert.classList.remove("d-none");
+		customAlert.innerHTML = `${winner} הם המנצחים <button type="button" class="btn btn-primary" id="liveAlertBtn">להתחלת משחק חדש <a id="NewGameButton" href="./startform.html" class="alert-link">לחץ כאן</a></button>`;
+		customAlert.scrollIntoView(); // גלילה לצורך הצגת ההודעה	
+	}
+
+	function checkForAGameStatus() {
+		let statusMessage;
+
+		//בדיקה על נצחון של צד אחד
+		let redCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("red"));
+		let whiteCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("white"));
+		if (redCheckers.length === 0) statusMessage = "הלבנים";
+		else if (whiteCheckers.length === 0) statusMessage = "האדומים";
+		//checking for a draw
+		else if (moveCounterWithoutBeating === 40) statusMessage = "It's a draw!!!";
+		//ניצחון בשל חוסר יכולת להזיז כלי
+		else {
+			let response = noMoveAvailableTest();
+			if (!response.hasMove) statusMessage = response.winningSide + " are the winners by blocking";
+		}
+
+		if (statusMessage) {
+			showWinnerAlert(statusMessage);
+		}
+	}
+
+	function noMoveAvailableTest() {
+		let responseObj = { winningSide: "", hasMove: false };
+		let playingCheckers = Array.from(document.getElementsByClassName("playable"));
+		responseObj.winningSide = playingCheckers[0].className.includes("white") ? "Reds" : "Whites";
+		//simulating a move
+		moveSimulation = true;
+		for (let checker of playingCheckers) {
+			checker.click();
+			if (playingCheckersHasMove) {
+				moveSimulation = false;
+				playingCheckersHasMove = false;
+				responseObj.hasMove = true;
+				return responseObj;
+			}
+		}
+		return responseObj;
+	}
+
+	function displayErrorMessage(message) {                               // הקפצת מסר למשתמש לשלוש שניות
+		const errorMessageElement = document.createElement("div");
+		errorMessageElement.className = "error-message";
+		errorMessageElement.innerText = message;
+
+		document.body.appendChild(errorMessageElement);
+
+		setTimeout(() => {
+			document.body.removeChild(errorMessageElement);
+		}, 3000);
+	}
+
+	function tryToMoveToNonPlayableCell() {
+		displayErrorMessage("לחצת במשבצת לא חוקית");
+	}
+
+
+	function startTheGame() {
+		drawBoard();
+		createCheckers();
+		placeCheckersOnBoard();
+	}
+
+	startTheGame();
