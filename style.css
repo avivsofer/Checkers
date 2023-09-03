@@ -3,6 +3,7 @@ body {
 }
 
 h1#mainHeader {
+    margin-top: 110px;
     font-size: 4em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     letter-spacing: 0.12em;
@@ -10,9 +11,14 @@ h1#mainHeader {
     color: #42596b;
     text-shadow:5px 8px 10px grey;
     text-align:center;
+    font-weight: bold;
 }
 
 #board {
+    position: absolute;
+    top: 28%;
+    right: 20%;
+    left: 20%;
     box-shadow: grey 0px 0px 25px;
     border: 3px solid black;
     background-color: #deb8879e;
@@ -42,7 +48,6 @@ div {
     border-radius: 25px;
     margin-left: auto;
     margin-right: auto;
-   
     text-align: center;
     font-size: 2em;
     font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
@@ -71,34 +76,45 @@ div.white {
   }
 
   #playerNames {
+    position: absolute;
+    top: 50%;
     border: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-top: 100px;
     padding-right: 15%;
     padding-left: 15%;
     align-items: center;
+    pointer-events: none;
 }
 
 #player1Name {
-    background-color: #007bff;
-    color: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 15%;
+    height: 180px;
+    width: 180px;
+    background-image: url('images/white_peas.png');
+    background-size: cover;
+    color: #000000;
     border-radius: 20px;
     font-size: 30px;
 }
 
 #player2Name {
-    background-color: #007bff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 15%;
+    height: 180px;
+    width: 180px;
+    background-image: url('images/black_peas.png');
+    background-size: cover;
     color: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: center;
     border-radius: 20px;
     font-size: 30px;
 }
@@ -113,25 +129,33 @@ div.white {
 }
 
 #liveAlertBtn{
+    font-size: 30px;
+    font-weight: bold;
+    height: auto;
+    width: auto;
     cursor:auto;
     vertical-align: middle;
-    padding: .375rem .75rem;
-    border-radius: .25rem;
+    border-radius: 20%;
+    position: absolute;
+    top: 100px;
+    right: 0px;
 }
 
 #customAlert{
+    height: auto;
+    width: auto;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     --bs-alert-color:#42596b;
     text-align: center;
-    --bs-alert-bg:none;
-    --bs-alert-border-color: none;
-    
-
 }
 
-.error-message {                                    
-    position: fixed;
-    top: 50%;
-    left: 50%;
+.error-message {      
+    align-items: center;                            
+    position: absolute;
+    top: 50px;
+    left: 180px;
     transform: translate(-50%, -50%);
     background-color: rgb(185, 43, 21);
     color: #fff;
@@ -148,9 +172,11 @@ div.white {
 }
 
 .turn-message {
-    bottom: 24%;
-    left: 40%;
-    right: 40%;
+    align-items: center;                            
+    position: absolute;
+    text-align: center;
+    top: 18px;
+    right: 30px;
     height: max-content;
     width: max-content;
     position: absolute;
@@ -159,6 +185,5 @@ div.white {
     border: 2px solid #007bff;
     border-radius: 20px;
     padding: 5px 20px 5px 20px;
-    text-align: center;
     font-size: 30px;
     }
