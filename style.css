@@ -78,46 +78,42 @@ div.white {
   #playerNames {
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
     border: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-top: 100px;
     padding-right: 15%;
     padding-left: 15%;
+    display: flex;
     align-items: center;
     pointer-events: none;
 }
 
-#player1Name {
+#player1Name, #player2Name {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: 15%;
     height: 180px;
     width: 180px;
-    background-image: url('images/white_peas.png');
     background-size: cover;
-    color: #000000;
     border-radius: 20px;
     font-size: 30px;
 }
 
-#player2Name {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 15%;
-    height: 180px;
-    width: 180px;
-    background-image: url('images/black_peas.png');
-    background-size: cover;
-    color: #fff;
-    border-radius: 20px;
-    font-size: 30px;
+#player1Name {
+    color: #000000;
+    right: 15%;
+    background-image: url('images/white_peas.png');
 }
+
+#player2Name {
+    color: #fff;
+    left: 15%;
+    background-image: url('images/black_peas.png');
+}
+
 
 #alertContainer{
     border: 0;
