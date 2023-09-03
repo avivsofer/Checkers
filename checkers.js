@@ -430,7 +430,7 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 		let whiteCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("white"));
 		if (redCheckers.length === 0) statusMessage = "הלבנים";
 		else if (whiteCheckers.length === 0) statusMessage = "האדומים";
-		//בדוק אם תיקו
+		//checking for a draw
 		else if (moveCounterWithoutBeating === 40) statusMessage = "It's a draw!!!";
 		//ניצחון בשל חוסר יכולת להזיז כלי
 		else {
@@ -438,6 +438,9 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 			if (!response.hasMove) statusMessage = response.winningSide + " are the winners by blocking";
 		}
 
+		if (statusMessage) {
+			showWinnerAlert(statusMessage);
+		}
 	}
 
 	function noMoveAvailableTest() {
