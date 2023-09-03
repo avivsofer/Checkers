@@ -80,7 +80,7 @@ div.white {
     top: 50%;
     transform: translateY(-50%);
     border: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin-top: 100px;
     padding-right: 15%;
     padding-left: 15%;
@@ -101,7 +101,6 @@ div.white {
     width: 180px;
     background-size: cover;
     border-radius: 20px;
-    font-size: 30px;
     pointer-events: fill;
 }
 
@@ -110,12 +109,13 @@ div.white {
     max-width: 100%;
     height: auto;
     border-radius: 50%;
-    margin-bottom: 10px;
+    margin-bottom: 10px; 
 }
 
 #playerNames p{
-    margin: 0;
-    overflow: auto;
+    margin: 0; 
+    padding: 5px;
+    overflow: auto; 
     text-overflow: unset;
 }
 
@@ -184,6 +184,7 @@ div.white {
     font-size: 30px;
 }
 
+
 .turn-message {
     align-items: center;                            
     position: absolute;
@@ -200,3 +201,8 @@ div.white {
     padding: 5px 20px 5px 20px;
     font-size: 30px;
     }
+
+.highlighted {
+    background-color: rgb(25, 165, 13);
+    border: 4px solid #000000;
+}

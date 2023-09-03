@@ -14,9 +14,11 @@ const messages = [];
 
 
 
+
 function checkNamesAndStartGame() {
 	const player1Name = document.getElementsByName("player1")[0].value;
 	const player2Name = document.getElementsByName("player2")[0].value;
+	
 
 	if (player1Name && player2Name) {
 		window.location.href = `index.html?player1=${encodeURIComponent(player1Name)}&player2=${encodeURIComponent(player2Name)}`;
@@ -24,6 +26,12 @@ function checkNamesAndStartGame() {
 		showErrorMessage("נא להזין שם לשני השחקנים");
 	}
 }
+
+document.addEventListener ('DOMContentLoaded', function () {
+    // הוסף את הסגנון "highlighted" לשחקן מספר 1
+    const player1Element = document.getElementById('player1Name'); // השינוי ילך לפי ה-ID של השחקן
+    player1Element.classList.add('highlighted');
+});
 
 function showErrorMessage(message) {
 	let errorMessageElement = document.getElementById("name-error");
@@ -372,7 +380,6 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 		enemyCheckerWasBeaten = false;
 		potentiallyDeadCheckers = new Map();
 
-
 		removePreviousTurnMessage();
 
 		// הצג את ההודעה החדשה
@@ -383,9 +390,33 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 			const message = `התור של : ${player2Name}`;
 			showPlayerTurnMessage(message);
 		}
+
+		removePreviousTurnHighlight(); 
+
+		if ((numberOfTurn % 2) === 0) {
+			highlightPlayer("player1Name");
+		} else {
+			highlightPlayer("player2Name");
+		}
+	
 		numberOfTurn++;
 	}
 
+	function highlightPlayer(playerId) {
+		const playerElement = document.getElementById(playerId);
+		if (playerElement) {
+			playerElement.classList.add("highlighted");
+		}
+	}
+	
+	function removePreviousTurnHighlight() {
+		const highlightedPlayer = document.querySelector(".highlighted");
+		if (highlightedPlayer) {
+			highlightedPlayer.classList.remove("highlighted");
+		}
+	}
+
+	
 	function showPlayerTurnMessage(message) {
 		messages.push(message);
 		displayNextMessage();
@@ -478,7 +509,7 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 	}
 
 	function tryToMoveToNonPlayableCell() {
-		displayErrorMessage("לחצת במשבצת לא חוקית");
+		displayErrorMessage("לחצת על משבצת לא חוקית");
 	}
 
 	function tryToPressEmptyBlackCell() {
