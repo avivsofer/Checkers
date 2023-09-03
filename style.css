@@ -90,6 +90,8 @@ div.white {
 }
 
 #player1Name, #player2Name {
+    height: auto;
+    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -100,6 +102,21 @@ div.white {
     background-size: cover;
     border-radius: 20px;
     font-size: 30px;
+    pointer-events: fill;
+}
+
+
+#playerNames img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+#playerNames p{
+    margin: 0;
+    overflow: auto;
+    text-overflow: unset;
 }
 
 #player1Name {
