@@ -223,7 +223,8 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 				td.className += " active";
 			}
 
-			td.onclick = function () {                    //  פונקציה המופעלת בלחיצה על הכלי שרוצים להזיז
+			td.onclick = function () {                                   //  פונקציה המופעלת בלחיצה על הכלי שרוצים להזיז
+				
 				if (td.className.includes("active")) {
 					if (this.style.backgroundColor === "green" || this.style.backgroundColor === "orange") {
 						let playableCheckers = Array.from(document.getElementsByClassName("playable"));
@@ -246,7 +247,10 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 						checkForAGameStatus();       // בדיקת סטטוס המשחק
 
 					}
-					// if (!(this.style.backgroundColor === "green") && !(this.style.backgroundColor === "orange")) {   // הבאתי מהפונקציה של בדיקה האם נאכל
+					
+					
+					 //else if (!(this.style.backgroundColor === "green") && (!(this.style.backgroundColor === "orange"))) {   // הבאתי מהפונקציה של בדיקה האם נאכל
+					//	tryToPressEmptyBlackCell();
 					// 	let currentRowNumber = getNumberFromId(checkerToMove.parentElement.parentElement);
 					// 	if (Math.abs(currentRowNumber - checkerToMove.rowNumberAtClick) == 1) {
 					// 		tryToMoveToNonPlayableCell();
@@ -475,6 +479,10 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 
 	function tryToMoveToNonPlayableCell() {
 		displayErrorMessage("לחצת במשבצת לא חוקית");
+	}
+
+	function tryToPressEmptyBlackCell() {
+		displayErrorMessage("נא למקם את הכלי שלך במשבצת ירוקה");
 	}
 
 
