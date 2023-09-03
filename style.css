@@ -133,13 +133,18 @@ div.white {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: orange;
-    color: black;
-    padding: 10px;
+    background-color: rgb(185, 43, 21);
+    color: #fff;
     border-radius: 5px;
     text-align: center;
-    font-size: 18px;
     z-index: 9999;
+    height: max-content;
+    width: max-content;
+    position: absolute;
+    border: 2px solid #e08e4f;
+    border-radius: 20px;
+    padding: 5px 20px 5px 20px;
+    font-size: 30px;
 }
 
 .turn-message {

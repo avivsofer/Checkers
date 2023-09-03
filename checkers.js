@@ -8,7 +8,7 @@ let enemyCheckerWasBeaten = false;
 let moveCounterWithoutBeating = 0;
 let moveSimulation = false;
 let playingCheckersHasMove = false;
-var a = 1;
+var numberOfTurn = 1;
 const messages = []; 
 
 
@@ -222,9 +222,9 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 				td.id = "cell_" + cellIdCounter++;
 				td.className += " active";
 			}
-			if (td.className.includes("active")) {
-				td.onclick = function () {                    //  פונקציה המופעלת בלחיצה על הכלי שרוצים להזיז
-
+			
+			td.onclick = function () {                    //  פונקציה המופעלת בלחיצה על הכלי שרוצים להזיז
+				if (td.className.includes("active")) {
 					if (this.style.backgroundColor === "green" || this.style.backgroundColor === "orange") {
 						let playableCheckers = Array.from(document.getElementsByClassName("playable"));
 						let checkerToMove = playableCheckers.filter(c => c.style.backgroundColor === "green")[0];
@@ -244,10 +244,13 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 						switchTurn();              // החלפת תאים
 						removeBeatenCheckers(this);  // הסרה של כלים שנאכלו
 						checkForAGameStatus();       // בדיקת סטטוס המשחק
+						
 					}
 
 
-				};
+				}
+				else                               //נגיעה במשבצת לבנה
+				tryToMoveToNonPlayableCell();
 			}
 			tr.appendChild(td);
 		}
@@ -365,14 +368,14 @@ function switchTurn() {            // החלפת תור
     removePreviousTurnMessage();
     
     // הצג את ההודעה החדשה
-    if ((a % 2) === 0) {
+    if ((numberOfTurn % 2) === 0) {
         const message = `התור של : ${player1Name}`;
         showPlayerTurnMessage(message);
     } else {
         const message = `התור של : ${player2Name}`;
         showPlayerTurnMessage(message);
     }
-	a++;
+	numberOfTurn++;
 }
 
 function showPlayerTurnMessage(message) {
@@ -416,14 +419,14 @@ function showWinnerAlert(winner) {
 function checkForAGameStatus() {
 	let statusMessage;
 
-	//one side winning check
+	//בדיקה על נצחון של צד אחד
 	let redCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("red"));
 	let whiteCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("white"));
 	if (redCheckers.length === 0) statusMessage = "הלבנים";
 	else if (whiteCheckers.length === 0) statusMessage = "האדומים";
 	//checking for a draw
 	else if (moveCounterWithoutBeating === 40) statusMessage = "It's a draw!!!";
-	//no move winner
+	//ניצחון בשל חוסר יכולת להזיז כלי
 	else {
 		let response = noMoveAvailableTest();
 		if (!response.hasMove) statusMessage = response.winningSide + " are the winners by blocking";
@@ -465,7 +468,7 @@ function displayErrorMessage(message) {                               // הקפ�
 }
 
 function tryToMoveToNonPlayableCell() {
-    displayErrorMessage("אתה מנסה להזיז את הכלי לתא אסור. אנא בחר תא אחר.");
+    displayErrorMessage("לחצת במשבצת לא חוקית");
 }
 
 
