@@ -130,13 +130,6 @@ class Checker {
 		return availableCellsForMove;
 	}
 
-	// colorRgbaCells = function () {             // פונקציה שהוספתי כדי לצבוע תאים שלא ניתן לזוז אליהם לשקוף
-	// 	const allCells = Array.from(document.getElementsByTagName("td"));
-	// 	allCells.forEach(cell => {
-	// 		if (!(cell.style.backgroundColor === "green"))
-	// 			cell.style.backgroundColor = "rgba(0, 0, 0, 0)";
-	// 	});
-	// }
 
 	findAllAvailableMoves = function (currentCell, destinationsForMove, availableCellsForMove, isEnemyCheckerBeaten) {    //  פונקציה שמוצאת את כל המקומות האפשריים, כולל התחשבות באכילת היריב
 		destinationsForMove.forEach(d => {
@@ -262,9 +255,10 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 						(this.childNodes.length == 0 || !(Array.from(this.childNodes[0].classList).includes("playable")))) {
 						tryToPressEmptyBlackCell()
 					}
+				
 
 				}
-				else if (checkerToMove != null) //נגיעה במשבצת לבנה
+				else if (checkerToMove != null)
 					tryToPressEmptyBlackCell();
 			}
 			tr.appendChild(td);
@@ -357,17 +351,17 @@ function freezePlayableCheckers() {   // מקפיא תור ליריב כאשר �
 	checkersToFreeze.forEach(ch => ch.style.pointerEvents = "none");
 }
 
-// function switchTurn() {            // החלפת תור
-// 	checkersBox.forEach(c => {
-// 		let divClassName = c.piece.className;
-// 		if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
-// 		else divClassName += " playable";
-// 		c.piece.className = divClassName;
-// 	});
-// 	enemyCheckerWasBeaten = false;
-// 	potentiallyDeadCheckers = new Map();
+	// function switchTurn() {            // החלפת תור
+	// 	checkersBox.forEach(c => {
+	// 		let divClassName = c.piece.className;
+	// 		if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
+	// 		else divClassName += " playable";
+	// 		c.piece.className = divClassName;
+	// 	});
+	// 	enemyCheckerWasBeaten = false;
+	// 	potentiallyDeadCheckers = new Map();
 
-// }
+	// }
 
 function switchTurn() {            // החלפת תור
 	checkersBox.forEach(c => {
@@ -464,7 +458,7 @@ function checkForAGameStatus() {
 	let redCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("red"));
 	let whiteCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("white"));
 	if (redCheckers.length === 0) statusMessage = "הלבנים";
-	else if (whiteCheckers.length === 0) statusMessage = "האדומים";
+	else if (whiteCheckers.length === 0) statusMessage = "השחורים";
 	//checking for a draw
 	else if (moveCounterWithoutBeating === 40) statusMessage = "It's a draw!!!";
 	//ניצחון בשל חוסר יכולת להזיז כלי
@@ -503,18 +497,18 @@ function displayErrorMessage(message) {                               // הקפ�
 
 	document.body.appendChild(errorMessageElement);
 
-	setTimeout(() => {
-		document.body.removeChild(errorMessageElement);
-	}, 3000);
-}
+		setTimeout(() => {
+			document.body.removeChild(errorMessageElement);
+		}, 2000);
+	}
 
 function tryToMoveToNonPlayableCell() {
 	displayErrorMessage("לחצת על משבצת לא חוקית");
 }
 
-function tryToPressEmptyBlackCell() {
-	displayErrorMessage("משבצת לא חוקית, בחר משבצת ירוקה בלבד");
-}
+	function tryToPressEmptyBlackCell() {
+		displayErrorMessage("מהלך לא חוקי! נא למקם את הכלי במשבצת המסומנת כחוקית");
+	}
 
 
 function startTheGame() {
