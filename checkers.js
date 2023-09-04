@@ -8,6 +8,7 @@ let enemyCheckerWasBeaten = false;
 let moveCounterWithoutBeating = 0;
 let moveSimulation = false;
 let playingCheckersHasMove = false;
+var checkerToMove = null
 var numberOfTurn = 1;
 const messages = [];
 
@@ -234,9 +235,9 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 			td.onclick = function () {                                   //  פונקציה המופעלת בלחיצה על הכלי שרוצים להזיז
 				
 				if (td.className.includes("active")) {
+					let playableCheckers = Array.from(document.getElementsByClassName("playable"));
+					checkerToMove = playableCheckers.filter(c => c.style.backgroundColor === "green")[0];  // אולי לנסות להוריד את הפילטור?
 					if (this.style.backgroundColor === "green" || this.style.backgroundColor === "orange") {
-						let playableCheckers = Array.from(document.getElementsByClassName("playable"));
-						let checkerToMove = playableCheckers.filter(c => c.style.backgroundColor === "green")[0];  // אולי לנסות להוריד את הפילטור?
 						this.appendChild(checkerToMove);
 						tryToBecomeKing(this);
 						if (enemyCheckerWasBeaten = checkIfWasBeat(checkerToMove)) {
@@ -255,8 +256,11 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 						checkForAGameStatus();       // בדיקת סטטוס המשחק
 
 					}
-					
-					
+					else if (checkerToMove != null &&
+						(this.childNodes.length == 0 || !(Array.from(this.childNodes[0].classList).includes("playable")))){
+						tryToPressEmptyBlackCell()
+					}
+				
 					 //else if (!(this.style.backgroundColor === "green") && (!(this.style.backgroundColor === "orange"))) {   // הבאתי מהפונקציה של בדיקה האם נאכל
 					//	tryToPressEmptyBlackCell();
 					// 	let currentRowNumber = getNumberFromId(checkerToMove.parentElement.parentElement);
@@ -265,8 +269,8 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 					// 	}
 
 					}
-					else                               //נגיעה במשבצת לבנה
-						tryToMoveToNonPlayableCell();
+					else if(checkerToMove != null)                              //נגיעה במשבצת לבנה
+						tryToPressEmptyBlackCell();
 				}
 				tr.appendChild(td);
 			}
@@ -379,6 +383,7 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 		});
 		enemyCheckerWasBeaten = false;
 		potentiallyDeadCheckers = new Map();
+		checkerToMove = null;
 
 		removePreviousTurnMessage();
 
