@@ -168,7 +168,7 @@ div.white {
     align-items: center;                            
     position: absolute;
     top: 50px;
-    left: 180px;
+    left: 250px;
     transform: translate(-50%, -50%);
     background-color: rgb(185, 43, 21);
     color: #fff;
@@ -186,20 +186,21 @@ div.white {
 
 
 .turn-message {
+     text-align:center;
     align-items: center;                            
-    position: absolute;
     text-align: center;
-    top: 18px;
-    right: 30px;
     height: max-content;
     width: max-content;
-    position: absolute;
+    position: fixed;
     color: #fff;
     background-color: #007bff;
     border: 2px solid #007bff;
     border-radius: 20px;
     padding: 5px 20px 5px 20px;
     font-size: 30px;
+    top: 20%;
+    left: 35%;
+    right: 35%;
     }
 
 .highlighted {

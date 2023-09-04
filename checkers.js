@@ -477,9 +477,9 @@ function drawBoard() {                    //  הפונקציה שיוצרת את
 			let response = noMoveAvailableTest();
 			if (!response.hasMove) statusMessage = response.winningSide + " are the winners by blocking";
 		}
-
 		if (statusMessage) {
 			showWinnerAlert(statusMessage);
+			removePreviousTurnHighlight();
 		}
 	}
 
