@@ -15,11 +15,15 @@ const messages = [];
 
 
 
+function goToRegistrationPage() {
+
+	window.location.href = 'startform.html';
+	
+}
 
 function checkNamesAndStartGame() {
 	const player1Name = document.getElementsByName("player1")[0].value;
 	const player2Name = document.getElementsByName("player2")[0].value;
-
 
 	if (player1Name && player2Name) {
 		window.location.href = `index.html?player1=${encodeURIComponent(player1Name)}&player2=${encodeURIComponent(player2Name)}`;
@@ -27,6 +31,7 @@ function checkNamesAndStartGame() {
 		showErrorMessage("נא להזין שם לשני השחקנים");
 	}
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
 	// הוסף את הסגנון "highlighted" לשחקן מספר 1
@@ -460,11 +465,11 @@ function checkForAGameStatus() {
 	if (redCheckers.length === 0) statusMessage = "הלבנים";
 	else if (whiteCheckers.length === 0) statusMessage = "השחורים";
 	//checking for a draw
-	else if (moveCounterWithoutBeating === 40) statusMessage = "It's a draw!!!";
+	else if (moveCounterWithoutBeating === 40) statusMessage = "המשחק הגיע לתיקו!!!";
 	//ניצחון בשל חוסר יכולת להזיז כלי
 	else {
 		let response = noMoveAvailableTest();
-		if (!response.hasMove) statusMessage = response.winningSide + " are the winners by blocking";
+		if (!response.hasMove) statusMessage = response.winningSide + " כי השחקן השני חסום";
 	}
 	if (statusMessage) {
 		showWinnerAlert(statusMessage);
@@ -475,7 +480,7 @@ function checkForAGameStatus() {
 function noMoveAvailableTest() {
 	let responseObj = { winningSide: "", hasMove: false };
 	let playingCheckers = Array.from(document.getElementsByClassName("playable"));
-	responseObj.winningSide = playingCheckers[0].className.includes("white") ? "Reds" : "Whites";
+	responseObj.winningSide = playingCheckers[0].className.includes("white") ? "שחורים" : "לבנים";
 	//simulating a move
 	moveSimulation = true;
 	for (let checker of playingCheckers) {

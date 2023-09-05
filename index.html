@@ -10,6 +10,9 @@
 </head>
 
 <body>
+
+    <button id="registrationButton" class="btn btn-outline-success font-weight-bold" role="alert" onclick="goToRegistrationPage()"> !עוד לא נרשמתם? הירשמו כאן</button>
+
     <h1 id="mainHeader" onmouseenter="changeCursor('mainHeader')" onmouseleave="resetCursor
     ('mainHeader')">הדמקה של סופר ובנדה</h1>
     <table id="board">
@@ -24,10 +27,11 @@
     
         <div id="customAlert" class="alert alert-danger d-none" role="alert">
             המשחק הסתיים!
-        <button type="button" class="btn btn-outline-success btn-block font-weight-bold" onclick="checkNamesAndStartGame()" target="_blank">התחל משחק</button>
+        <button id="startGameButton" class="btn btn-outline-success btn-block font-weight-bold" onclick="checkNamesAndStartGame()" target="_blank">התחל משחק מחדש</button>
   
     </div>
 
+  
     <script src="checkers.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
