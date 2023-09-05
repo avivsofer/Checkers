@@ -34,7 +34,7 @@ function checkNamesAndStartGame() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-	// הוסף את הסגנון "highlighted" לשחקן מספר 1
+	// הוסף "highlighted" לשחקן מספר 1
 	const player1Element = document.getElementById('player1Name'); // השינוי ילך לפי ה-ID של השחקן
 	player1Element.classList.add('highlighted');
 	const message = `התור של : ${player1Name}`;
@@ -301,13 +301,13 @@ function createCheckers() {     // יצירת כלי המשחק
 function placeCheckersOnBoard() {
 	let cells = document.getElementsByClassName("active");
 
-	// placing red checkers
+
 	for (let i = 0; i < 12; i++) {
 		cells[i].appendChild(checkersBox[i].piece);
 
 	}
 
-	//placing white checkers
+
 	for (let i = 12; i < 24; i++) {
 		cells[i + 8].appendChild(checkersBox[i].piece);
 	}
@@ -356,17 +356,6 @@ function freezePlayableCheckers() {   // מקפיא תור ליריב כאשר �
 	checkersToFreeze.forEach(ch => ch.style.pointerEvents = "none");
 }
 
-	// function switchTurn() {            // החלפת תור
-	// 	checkersBox.forEach(c => {
-	// 		let divClassName = c.piece.className;
-	// 		if (divClassName.includes("playable")) divClassName = divClassName.substring(0, divClassName.indexOf("playable"));
-	// 		else divClassName += " playable";
-	// 		c.piece.className = divClassName;
-	// 	});
-	// 	enemyCheckerWasBeaten = false;
-	// 	potentiallyDeadCheckers = new Map();
-
-	// }
 
 function switchTurn() {            // החלפת תור
 	checkersBox.forEach(c => {
@@ -464,7 +453,7 @@ function checkForAGameStatus() {
 	let whiteCheckers = Array.from(document.getElementsByTagName("div")).filter(ch => ch.className.includes("white"));
 	if (redCheckers.length === 0) statusMessage = "הלבנים";
 	else if (whiteCheckers.length === 0) statusMessage = "השחורים";
-	//checking for a draw
+
 	else if (moveCounterWithoutBeating === 40) statusMessage = "המשחק הגיע לתיקו!!!";
 	//ניצחון בשל חוסר יכולת להזיז כלי
 	else {
@@ -481,7 +470,7 @@ function noMoveAvailableTest() {
 	let responseObj = { winningSide: "", hasMove: false };
 	let playingCheckers = Array.from(document.getElementsByClassName("playable"));
 	responseObj.winningSide = playingCheckers[0].className.includes("white") ? "שחורים" : "לבנים";
-	//simulating a move
+
 	moveSimulation = true;
 	for (let checker of playingCheckers) {
 		checker.click();
